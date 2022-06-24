@@ -1,0 +1,64 @@
+
+ion-card {
+    background-color: #ffffff;
+  }
+
+.commentsarea {
+  background-color: #ffffff !important;
+
+}
+
+[size="small"] {
+  height: 20px;
+  font-size: 12px;
+}
+
+[size="large"] {
+  height: 50px;
+  
+  padding: 25px;
+  
+  border-radius: 25px;
+}
+
+ion-chip.wide {
+  width: 100%;
+  
+  justify-content: center;
+}
+
+ion-item-divider{
+  margin-top: 0px;
+  min-height: 1px!important;
+}
+
+ion-img {
+  width: 75px;
+}
+
+.timestamp {
+  font-size: x-small;
+  color: var(--ion-color-secondary);
+}
+
+.comment-input {
+  width: 100%;
+  border: 1px solid var(--ion-color-medium);
+  border-radius: 6px;
+  background-color: #fff;
+  resize: none;
+  margin-top: 0px;
+  --padding-start: 8px;
+}
+
+.sendCommentBtn {
+  font-size: large !important;
+}
+
+.btnRow {
+  text-align: center;
+}
+
+.liked {
+  color: var(--ion-color-danger);
+}

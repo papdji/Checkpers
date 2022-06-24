@@ -1,0 +1,122 @@
+<ion-card color="light">
+  <ion-card-content class="ion-no-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-img [src]="postImage"></ion-img>
+        </ion-col>
+        <ion-col size="8">
+          <ion-row>
+            <ion-text color="primary">
+              <h1>{{ post.from }}</h1>
+            </ion-text>
+          </ion-row>
+          <!--ion-row>
+            <ion-text color="secondary">
+              <h2>Engineering Specialist</h2>
+            </ion-text>
+          </ion-row-->
+          <ion-row>
+            <ion-text color="secondary">
+              <small>{{ post.createdAt?.toMillis() | date:'short' }}</small>
+            </ion-text>
+          </ion-row>
+        </ion-col>
+        <ion-row class="ion-padding">
+          <ion-text color="primary" class="post-message">
+            {{ post.msg }}
+          </ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row class="btnRow ion-align-items-center">
+
+        <!--ion-chip *ngIf="post.type==='request'" size="small">
+          <ion-icon name="hammer-outline" color="danger"></ion-icon>
+          <ion-label>Request assistance</ion-label>
+        </ion-chip>
+        <ion-chip *ngIf="post.type==='information'" size="small">
+          <ion-icon name="information-circle-outline" color="success"></ion-icon>
+          <ion-label>Information</ion-label>
+        </ion-chip>
+        <ion-chip *ngIf="post.type==='question'" size="small">
+          <ion-icon name="help-circle-outline" color="warning"></ion-icon>
+          <ion-label>Question</ion-label>
+        </ion-chip-->
+
+        <ion-col size="6" class="ion-align-self-center">
+          <ion-chip *ngIf="(post.comments$ | async)?.length>=0" size="small">
+            <ion-icon name="chatbox-ellipses-outline" color="success"></ion-icon>
+            <ion-label>{{ post.countComments }} Comments</ion-label>
+          </ion-chip>
+        </ion-col>
+        
+        <ion-col size="6" class="ion-align-self-center">
+          <ion-chip *ngIf="post.countLikes >= 0" size="small">
+            <ion-icon name="heart-outline" color="danger"></ion-icon>
+            <ion-label>{{ post.countLikes }} Likes</ion-label>
+          </ion-chip>
+      </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-item-divider></ion-item-divider>
+
+    <ion-list *ngIf="viewComments" class="commentsarea">
+
+
+      <ion-row class="ion-align-items-center">
+        <ion-col size="9">
+          <ion-textarea autoGrow="true" class="comment-input" rows="1" maxLenght="500" [(ngModel)]="newMsg" placeholder="Add your comment here...">
+          </ion-textarea>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === ''" class="msg-btn" (click)="addPostComment()">
+            <ion-icon class="sendCommentBtn" name="send" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <div *ngFor="let comment of post.comments">
+        <ion-item color="light">
+
+            <ion-col size="10" class="align-items-stretch">
+              <ion-row class="align-items-stretch">
+                <ion-text color="secondary">{{comment.fromName}} . <span class="timestamp">{{ comment.createdAt?.toMillis() | date:'short' }}</span></ion-text>
+              </ion-row>
+              <ion-row class="align-items-stretch">
+                <ion-text color="dark"><p>{{comment.msg}}</p></ion-text>
+              </ion-row>
+            </ion-col>
+
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <ion-item-divider></ion-item-divider>
+
+    <ion-grid>
+
+      <ion-row class="btnRow">
+
+        <ion-col size="4" class="ion-align-self-center">
+          <ion-button [disabled] = "true" color="secondary"><ion-icon name="call-outline" slot="icon-only"></ion-icon></ion-button>
+        </ion-col>
+
+        <ion-col size="4" class="ion-align-self-center">
+          <ion-button (click)="toggleViewComments()" color="secondary"><ion-icon name="chatbox-ellipses-outline" slot="icon-only"></ion-icon></ion-button> 
+        </ion-col>
+
+        <ion-col size="4" class="ion-align-self-center">
+          <ion-button (click)="togglePostLiked()" color="secondary"><ion-icon [ngClass]="{'liked' : post.userLikes}" [name]="post.userLikes === true ? 'heart' : 'heart-outline'" slot="icon-only"></ion-icon></ion-button>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+
+  </ion-card-content>
+</ion-card>
